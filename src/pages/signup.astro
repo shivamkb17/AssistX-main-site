@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import SignupHero from '../components/form/SignupHero.astro';
+import SignupForm from '../components/form/SignupForm.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Sign Up - AssistX">
+  <Navigation />
+  <main class="min-h-screen pt-32 pb-20 px-4 bg-gradient-to-br from-indigo-50/50 to-white">
+    <div class="max-w-3xl mx-auto">
+      <SignupHero />
+      <div class="bg-white p-8 md:p-10 rounded-2xl shadow-xl">
+        <SignupForm />
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>
