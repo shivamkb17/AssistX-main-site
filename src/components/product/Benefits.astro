@@ -19,13 +19,23 @@ const benefits = [
     title: "Easy Integration",
     description: "Quick setup with your existing tools and immediate value delivery.",
     icon: "🔄"
+  },
+  {
+    title: "Smart Analytics",
+    description: "Make data-driven decisions with real-time insights and reporting.",
+    icon: "📊"
+  },
+  {
+    title: "Team Collaboration",
+    description: "Enable seamless coordination across your support team members.",
+    icon: "👥"
   }
 ];
 ---
 <section class="bg-gradient-to-b from-indigo-50 to-white py-20 px-4">
   <div class="max-w-7xl mx-auto">
     <h2 class="text-4xl font-bold text-center mb-16 text-gray-900">Why Choose AssistX?</h2>
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div class="grid md:grid-cols-3 gap-8">
       {benefits.map(benefit => (
         <div class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 text-center relative overflow-hidden">
           <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>

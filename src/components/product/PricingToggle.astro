@@ -1,0 +1,60 @@
+---
+interface Props {
+  selected: 'monthly' | 'yearly';
+}
+
+const { selected } = Astro.props;
+---
+<div class="flex justify-center">
+  <div class="bg-gray-100 p-1.5 rounded-xl inline-flex shadow-sm">
+    <button
+      class={`px-8 py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
+        selected === 'monthly' 
+          ? 'bg-white text-gray-900 shadow-md ring-1 ring-gray-200' 
+          : 'text-gray-500 hover:text-gray-700 hover:bg-white/50'
+      }`}
+      data-billing="monthly"
+    >
+      Monthly
+    </button>
+    <button
+      class={`px-8 py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
+        selected === 'yearly' 
+          ? 'bg-white text-gray-900 shadow-md ring-1 ring-gray-200' 
+          : 'text-gray-500 hover:text-gray-700 hover:bg-white/50'
+      }`}
+      data-billing="yearly"
+    >
+      Yearly
+      <span class="ml-1.5 text-xs font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Save 25%</span>
+    </button>
+  </div>
+</div>
+
+<script>
+const toggleButtons = document.querySelectorAll('[data-billing]');
+const monthlyPrices = document.querySelectorAll('[data-price-monthly]');
+const yearlyPrices = document.querySelectorAll('[data-price-yearly]');
+
+function updatePricing(billing: 'monthly' | 'yearly') {
+  toggleButtons.forEach(button => {
+    const isSelected = button.getAttribute('data-billing') === billing;
+    button.classList.toggle('bg-white', isSelected);
+    button.classList.toggle('text-gray-900', isSelected);
+    button.classList.toggle('shadow-md', isSelected);
+    button.classList.toggle('ring-1', isSelected);
+    button.classList.toggle('ring-gray-200', isSelected);
+    button.classList.toggle('text-gray-500', !isSelected);
+  });
+
+  monthlyPrices.forEach(el => el.classList.toggle('hidden', billing === 'yearly'));
+  yearlyPrices.forEach(el => el.classList.toggle('hidden', billing === 'monthly'));
+}
+
+toggleButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const billing = button.getAttribute('data-billing') as 'monthly' | 'yearly';
+    updatePricing(billing);
+  });
+});
+</script>

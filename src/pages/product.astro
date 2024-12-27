@@ -1,18 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
+import ProductHero from '../components/product/ProductHero.astro';
 import Benefits from '../components/product/Benefits.astro';
 import Pricing from '../components/product/Pricing.astro';
-import DemoForm from '../components/DemoForm.astro';
+import FAQs from '../components/product/FAQs.astro';
 import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="AssistX Features - Omnichannel Support Solution">
   <Navigation />
   <main class="pt-16">
+    <ProductHero />
     <Benefits />
     <Pricing />
-    <DemoForm />
+    <FAQs />
   </main>
   <Footer />
 </Layout>

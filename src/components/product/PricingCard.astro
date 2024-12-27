@@ -1,0 +1,72 @@
+---
+interface Feature {
+  name: string;
+  value: string | boolean;
+}
+
+interface Props {
+  name: string;
+  description: string;
+  monthlyPrice: number;
+  yearlyPrice: number;
+  features: Record<string, string | boolean>;
+  popular?: boolean;
+}
+
+const { name, description, monthlyPrice, yearlyPrice, features, popular = false } = Astro.props;
+---
+<div class={`group flex flex-col bg-white rounded-3xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden
+  ${popular ? 'relative shadow-2xl ring-2 ring-primary scale-105 md:scale-110' : 'shadow-xl hover:shadow-2xl'}`}
+>
+  {popular && (
+    <div class="absolute top-0 right-0 bg-primary text-white px-4 py-1 rounded-bl-lg text-sm font-medium transform translate-x-2 -translate-y-2">
+      Most Popular
+    </div>
+  )}
+  <div class="p-8 flex-grow">
+    <div class="mb-8">
+      <h3 class="text-2xl font-bold mb-2 text-gray-900">{name}</h3>
+      <p class="text-gray-600">{description}</p>
+    </div>
+    <div class="mb-8">
+      <div data-price-monthly class="flex items-baseline">
+        <span class="text-5xl font-bold text-primary">${monthlyPrice}</span>
+        <span class="text-gray-600 ml-2">/month</span>
+      </div>
+      <div data-price-yearly class="flex items-baseline hidden">
+        <span class="text-5xl font-bold text-primary">${yearlyPrice}</span>
+        <span class="text-gray-600 ml-2">/month</span>
+        <span class="ml-2 text-sm text-green-600 font-medium">25% off</span>
+      </div>
+    </div>
+    <a
+      href="#"
+      class={`block text-center py-3.5 px-6 rounded-xl font-semibold transition-all duration-300 ${
+        popular
+          ? 'bg-primary text-white hover:bg-indigo-600 shadow-lg hover:shadow-xl ring-1 ring-primary hover:ring-indigo-600'
+          : 'bg-indigo-50 text-primary hover:bg-indigo-100 ring-1 ring-indigo-100 hover:ring-indigo-200'
+      }`}
+    >
+      Get Started
+    </a>
+  </div>
+  <div class="border-t bg-gray-50 p-8">
+    <ul class="space-y-4">
+      {Object.entries(features).map(([name, value]) => (
+        <li class="flex items-center space-x-3">
+          <span class={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${
+            value ? 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'
+          }`}>
+            {value ? '✓' : '×'}
+          </span>
+          <span class="text-gray-700">
+            {name}
+            {typeof value === 'string' && 
+              <span class="text-gray-600 ml-1">({value})</span>
+            }
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>

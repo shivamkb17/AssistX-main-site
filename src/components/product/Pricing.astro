@@ -1,23 +1,13 @@
 ---
-const features = [
-  "Channel number",
-  "API Access",
-  "Team Collaboration",
-  "Webhook Access",
-  "History of chat",
-  "OpenAI integration",
-  "Google Dialogflow integration",
-  "No markup fee on Whatsapp Cloud API",
-  "Automation",
-  "Canned Response",
-  "Macros For faster response"
-];
+import PricingToggle from './PricingToggle.astro';
+import PricingCard from './PricingCard.astro';
 
 const plans = [
   {
     name: "Starter",
-    price: "49",
     description: "Perfect for small businesses",
+    monthlyPrice: 49,
+    yearlyPrice: 37,
     features: {
       "Channel number": "2 channels",
       "API Access": true,
@@ -34,8 +24,9 @@ const plans = [
   },
   {
     name: "Professional",
-    price: "99",
     description: "Ideal for growing teams",
+    monthlyPrice: 99,
+    yearlyPrice: 74,
     popular: true,
     features: {
       "Channel number": "5 channels",
@@ -53,8 +44,9 @@ const plans = [
   },
   {
     name: "Enterprise",
-    price: "249",
     description: "For large organizations",
+    monthlyPrice: 249,
+    yearlyPrice: 187,
     features: {
       "Channel number": "Unlimited",
       "API Access": true,
@@ -71,65 +63,18 @@ const plans = [
   }
 ];
 ---
-<section class="py-20 px-4 bg-gradient-to-b from-white to-indigo-50">
+<section id="pricing" class="py-20 px-4 bg-gradient-to-b from-white to-indigo-50">
   <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-16">
+    <div class="text-center mb-20">
       <h2 class="text-4xl font-bold mb-4 text-gray-900">Simple, Transparent Pricing</h2>
       <p class="text-xl text-gray-600">Choose the plan that best fits your needs</p>
     </div>
     
-    <div class="grid md:grid-cols-3 gap-8 items-stretch">
+    <PricingToggle selected="monthly" />
+    
+    <div class="grid md:grid-cols-3 gap-8 items-stretch mt-16">
       {plans.map(plan => (
-        <div class={`group flex flex-col bg-white rounded-3xl transform hover:-translate-y-2 transition-all duration-300 overflow-hidden
-          ${plan.popular ? 'relative shadow-2xl ring-2 ring-primary scale-105 md:scale-110' : 'shadow-xl hover:shadow-2xl'}`}
-        >
-          {plan.popular && (
-            <div class="absolute top-0 right-0 bg-primary text-white px-4 py-1 rounded-bl-lg text-sm font-medium transform translate-x-2 -translate-y-2">
-              Most Popular
-            </div>
-          )}
-          <div class="p-8 flex-grow">
-            <div class="mb-8">
-              <h3 class="text-2xl font-bold mb-2 text-gray-900">{plan.name}</h3>
-              <p class="text-gray-600">{plan.description}</p>
-            </div>
-            <div class="mb-8">
-              <span class="text-5xl font-bold text-primary">${plan.price}</span>
-              <span class="text-gray-600">/month</span>
-            </div>
-            <a
-              href="#request-demo"
-              class={`block text-center py-3 px-6 rounded-xl font-medium transition-all duration-300 transform hover:scale-105 ${
-                plan.popular
-                  ? 'bg-primary text-white hover:bg-indigo-600 shadow-lg hover:shadow-xl'
-                  : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
-              }`}
-            >
-              Get Started
-            </a>
-          </div>
-          <div class="border-t bg-gray-50 p-8">
-            <ul class="space-y-4">
-              {features.map(feature => (
-                <li class="flex items-center space-x-3">
-                  <span class={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${
-                    plan.features[feature] 
-                      ? 'bg-green-100 text-green-500' 
-                      : 'bg-red-100 text-red-500'
-                  }`}>
-                    {plan.features[feature] ? '✓' : '×'}
-                  </span>
-                  <span class="text-gray-700">
-                    {feature}
-                    {typeof plan.features[feature] === 'string' && 
-                      <span class="text-gray-600 ml-1">({plan.features[feature]})</span>
-                    }
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <PricingCard {...plan} />
       ))}
     </div>
   </div>

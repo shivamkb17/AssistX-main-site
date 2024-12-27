@@ -1,0 +1,55 @@
+---
+import FAQItem from './FAQItem.astro';
+
+const faqs = [
+  {
+    question: "How does AssistX handle multiple communication channels?",
+    answer: "AssistX unifies all communication channels (email, chat, social media, etc.) into a single inbox. This allows your team to manage and respond to customer inquiries from one centralized platform, ensuring consistent communication across all channels."
+  },
+  {
+    question: "Can I integrate AssistX with my existing tools?",
+    answer: "Yes, AssistX offers seamless integration with popular business tools and CRM systems. Our API and webhook support allows for custom integrations, making it easy to connect with your existing workflow."
+  },
+  {
+    question: "What kind of analytics and reporting features are available?",
+    answer: "AssistX provides comprehensive real-time analytics including response times, customer satisfaction metrics, team performance indicators, and channel-specific insights. Custom reports can be generated to track the metrics that matter most to your business."
+  },
+  {
+    question: "How secure is the platform?",
+    answer: "Security is our top priority. AssistX employs enterprise-grade encryption, regular security audits, and complies with industry standards to ensure your data remains protected."
+  },
+  {
+    question: "What kind of support do you offer?",
+    answer: "We provide 24/7 technical support, comprehensive documentation, and dedicated account managers for enterprise clients. Our support team is always ready to help you make the most of AssistX."
+  }
+];
+---
+<section class="py-20 px-4">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      {faqs.map(faq => (
+        <FAQItem question={faq.question} answer={faq.answer} />
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+document.querySelectorAll('.faq-button').forEach(button => {
+  button.addEventListener('click', () => {
+    const answer = button.querySelector('.faq-answer');
+    const icon = button.querySelector('svg');
+    
+    // Toggle answer visibility
+    answer?.classList.toggle('hidden');
+    
+    // Rotate icon
+    icon?.classList.toggle('rotate-180');
+    
+    // Update button's expanded state
+    const isExpanded = answer?.classList.contains('hidden') === false;
+    button.setAttribute('aria-expanded', isExpanded.toString());
+  });
+});
+</script>
