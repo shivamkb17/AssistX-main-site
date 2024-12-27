@@ -39,12 +39,12 @@ const yearlyPrices = document.querySelectorAll('[data-price-yearly]');
 function updatePricing(billing: 'monthly' | 'yearly') {
   toggleButtons.forEach(button => {
     const isSelected = button.getAttribute('data-billing') === billing;
-    button.classList.toggle('bg-white', isSelected);
-    button.classList.toggle('text-gray-900', isSelected);
+    button.classList.toggle('bg-indigo-600', isSelected);
+    button.classList.toggle('text-white-900', isSelected);
     button.classList.toggle('shadow-md', isSelected);
     button.classList.toggle('ring-1', isSelected);
-    button.classList.toggle('ring-gray-200', isSelected);
-    button.classList.toggle('text-gray-500', !isSelected);
+    button.classList.toggle('bg-indigo-50', isSelected);
+    button.classList.toggle('bg-indigo-100', !isSelected);
   });
 
   monthlyPrices.forEach(el => el.classList.toggle('hidden', billing === 'yearly'));
