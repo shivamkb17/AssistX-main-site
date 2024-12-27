@@ -1,0 +1,32 @@
+---
+const features = [
+  {
+    title: 'Omnichannel Messaging',
+    description: 'Seamlessly connect with customers across email, chat, social media, and more.',
+    icon: '📱'
+  },
+  {
+    title: 'Real-Time Analytics',
+    description: 'Make data-driven decisions with comprehensive performance insights.',
+    icon: '📊'
+  },
+  {
+    title: 'Workflow Automation',
+    description: 'Automate repetitive tasks and focus on what matters most.',
+    icon: '⚡'
+  }
+];
+---
+<section class="py-20 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-3 gap-8">
+      {features.map(feature => (
+        <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+          <div class="text-4xl mb-4">{feature.icon}</div>
+          <h3 class="text-xl font-semibold mb-2">{feature.title}</h3>
+          <p class="text-gray-600">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

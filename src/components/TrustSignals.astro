@@ -1,0 +1,23 @@
+---
+const companies = [
+  'Company 1',
+  'Company 2',
+  'Company 3',
+  'Company 4',
+  'Company 5'
+];
+---
+<section class="py-20 px-4 bg-gray-50">
+  <div class="max-w-7xl mx-auto text-center">
+    <h2 class="text-xl font-semibold text-gray-600 mb-8">Trusted by Industry Leaders</h2>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-center">
+      {companies.map(company => (
+        <div class="flex items-center justify-center">
+          <div class="bg-gray-200 w-32 h-12 rounded flex items-center justify-center text-gray-600">
+            {company}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
