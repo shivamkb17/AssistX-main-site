@@ -35,37 +35,21 @@ const features = [
 <section class="py-20 px-4">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold mb-4">Powerful Features for Your Success</h2>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">Powerful Features for Your Success</h2>
+      <p class="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto">
         Everything you need to deliver exceptional customer support and drive business growth
       </p>
     </div>
     <div class="grid md:grid-cols-3 gap-8">
       {features.map(feature => (
         <div class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300 text-center">
-          <div class="text-5xl mb-6 mx-auto w-20 h-20 flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl transform group-hover:scale-110 transition-transform">
+          <div class="text-4xl sm:text-5xl mb-6 mx-auto w-20 h-20 flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl transform group-hover:scale-110 transition-transform">
             {feature.icon}
           </div>
-          <h3 class="text-2xl font-bold mb-4 text-gray-900">{feature.title}</h3>
-          <p class="text-gray-600">{feature.description}</p>
+          <h3 class="text-xl sm:text-2xl font-bold mb-4 text-gray-900">{feature.title}</h3>
+          <p class="text-sm sm:text-base text-gray-600">{feature.description}</p>
         </div>
       ))}
-    </div>
-  </div>
-</section>
-
-<section class="py-16 px-4 bg-gradient-to-br from-indigo-50 to-white">
-  <div class="max-w-7xl mx-auto text-center">
-    <div class="inline-block bg-white px-6 py-3 rounded-full shadow-md mb-6">
-      <span class="text-xl font-semibold text-primary">Starting at $49/month</span>
-    </div>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="/product#pricing" class="inline-block bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-indigo-600 transition-colors">
-        View Full Pricing
-      </a>
-      <a href="#request-demo" class="inline-block bg-white text-primary px-8 py-3 rounded-lg font-medium border-2 border-primary hover:bg-indigo-50 transition-colors">
-        Request a Demo
-      </a>
     </div>
   </div>
 </section>
