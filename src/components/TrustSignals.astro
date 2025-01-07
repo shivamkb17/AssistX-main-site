@@ -1,23 +1,166 @@
 ---
-const companies = [
-  'Company 1',
-  'Company 2',
-  'Company 3',
-  'Company 4',
-  'Company 5'
+const logos = [
+  {
+    url: 'https://www.firesquidai.com/storage/2023/09/Firesquid-Logo.png',
+    alt: 'Firesquid'
+  },
+  {
+    url: 'https://marketix.in/wp-content/uploads/2023/11/Untitled-design-1.png',
+    alt: 'Marketix'
+  }
 ];
+
+// Create array of alternating logos to fill the space
+const companies = Array(10).fill(null).map((_, i) => logos[i % 2]);
 ---
 <section class="py-20 px-4 bg-gray-50">
   <div class="max-w-7xl mx-auto text-center">
     <h2 class="text-xl font-semibold text-gray-600 mb-8">Trusted by Industry Leaders</h2>
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-center">
-      {companies.map(company => (
-        <div class="flex items-center justify-center">
-          <div class="bg-gray-200 w-32 h-12 rounded flex items-center justify-center text-gray-600">
-            {company}
-          </div>
+    
+    <!-- Desktop Slider -->
+    <div class="hidden md:block relative">
+      <div class="overflow-hidden">
+        <div id="desktop-slider" class="flex transition-transform duration-300 ease-in-out" data-companies={companies.length}>
+          {companies.map(company => (
+            <div class="flex-none w-1/5 px-4">
+              <div class="h-16 rounded flex items-center justify-center">
+                <img 
+                  src={company.url} 
+                  alt={company.alt}
+                  class="h-12 w-auto object-contain"
+                />
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
+      
+      <!-- Desktop Navigation Arrows -->
+      <button
+        id="desktop-prev"
+        class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition-colors"
+        aria-label="Previous slide"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button
+        id="desktop-next"
+        class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition-colors"
+        aria-label="Next slide"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Slider -->
+    <div class="md:hidden relative">
+      <div class="overflow-hidden">
+        <div id="mobile-slider" class="flex transition-transform duration-300 ease-in-out" data-companies={companies.length}>
+          {companies.map(company => (
+            <div class="flex-none w-1/2 px-2">
+              <div class="h-12 rounded flex items-center justify-center">
+                <img 
+                  src={company.url} 
+                  alt={company.alt}
+                  class="h-10 w-auto object-contain"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <!-- Mobile Navigation Dots -->
+      <div class="flex justify-center mt-6 space-x-2">
+        {companies.map((_, index) => (
+          <button
+            class="w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors mobile-dot"
+            data-index={index}
+            aria-label={`Go to slide ${index + 1}`}
+          ></button>
+        ))}
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+// Mobile slider functionality
+const mobileSlider = document.getElementById('mobile-slider');
+const mobileDots = document.querySelectorAll('.mobile-dot');
+const mobileTotal = Number(mobileSlider?.dataset.companies || 0);
+let mobileCurrentSlide = 0;
+
+function updateMobileSlider(index: number) {
+  if (!mobileSlider) return;
+  mobileCurrentSlide = index;
+  mobileSlider.style.transform = `translateX(-${index * 50}%)`;
+  
+  mobileDots.forEach((dot, i) => {
+    dot.classList.toggle('bg-primary', i === index);
+    dot.classList.toggle('bg-gray-300', i !== index);
+  });
+}
+
+// Desktop slider functionality
+const desktopSlider = document.getElementById('desktop-slider');
+const prevButton = document.getElementById('desktop-prev');
+const nextButton = document.getElementById('desktop-next');
+let desktopCurrentSlide = 0;
+const desktopTotal = Number(desktopSlider?.dataset.companies || 0);
+const visibleSlides = 5;
+
+function updateDesktopSlider(index: number) {
+  if (!desktopSlider) return;
+  desktopCurrentSlide = index;
+  desktopSlider.style.transform = `translateX(-${index * 20}%)`;
+  
+  if (prevButton && nextButton) {
+    prevButton.style.display = index === 0 ? 'none' : 'block';
+    nextButton.style.display = index >= desktopTotal - visibleSlides ? 'none' : 'block';
+  }
+}
+
+// Desktop navigation
+prevButton?.addEventListener('click', () => {
+  if (desktopCurrentSlide > 0) {
+    updateDesktopSlider(desktopCurrentSlide - 1);
+  }
+});
+
+nextButton?.addEventListener('click', () => {
+  if (desktopCurrentSlide < desktopTotal - visibleSlides) {
+    updateDesktopSlider(desktopCurrentSlide + 1);
+  }
+});
+
+// Mobile navigation
+mobileDots.forEach((dot, index) => {
+  dot.addEventListener('click', () => updateMobileSlider(index));
+});
+
+// Initialize sliders
+updateMobileSlider(0);
+updateDesktopSlider(0);
+
+// Auto-advance both sliders
+setInterval(() => {
+  // Mobile slider
+  if (mobileCurrentSlide < mobileTotal - 2) {
+    updateMobileSlider(mobileCurrentSlide + 1);
+  } else {
+    updateMobileSlider(0);
+  }
+  
+  // Desktop slider
+  if (desktopCurrentSlide < desktopTotal - visibleSlides) {
+    updateDesktopSlider(desktopCurrentSlide + 1);
+  } else {
+    updateDesktopSlider(0);
+  }
+}, 3000);
+</script>
